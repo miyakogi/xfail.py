@@ -13,3 +13,62 @@ XFail
 .. image:: https://codecov.io/github/miyakogi/xfail.py/coverage.svg?branch=master
     :target: https://codecov.io/github/miyakogi/xfail.py?branch=master
 
+
+XFail provides a decorator function ``xfail`` to skip expected exceptions.
+Similar to unittest.skipIf, but ``xfail`` can specify which exception should be
+skipped, and raise if unexpectedly passed (with ``strict=True`` argument).
+
+Usage
+-----
+
+.. code-block:: py
+
+    from xfail import xfail
+
+    @xfail(IndexError)
+    def get(l, index):
+        return l[index]
+
+    l = [1, 2, 3]
+    get(4)  # no error
+
+Also supports multiple exceptions:
+
+.. code-block:: py
+
+    @xfail((IndexError, ValueError))
+    def a():
+        '''This function passes IndexError and ValueError
+        ...
+
+In test script, similar to ``unittest.TestCase.assertRaises``:
+
+.. code-block:: py
+
+    from unittest import TestCase
+    from xfail import xfail
+
+    class MyTest(TestCase):
+        def test_1(self):
+            @xfail(AssertionError)
+            def should_raise_error():
+                assert False
+            a()  # test passes
+
+        def test_2(self):
+            @xfail(AssertionError, strict=True)
+            def should_raise_error():
+                assert True
+            a()  # test failes, since this function should raise AssertionError
+
+        # Can be used for test function
+        @xfail(AssertionError, strict=True)
+        def test_3(self)
+            assert False
+
+        # This test fails
+        @xfail(AssertionError, strict=True)
+        def test_3(self)
+            assert True
+
+For more exapmles, see `test_xfail.py <https://github.com/miyakogi/xfail.py/blob/master/test_xfail.py>`_.
