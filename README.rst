@@ -21,6 +21,20 @@ skipped, and raise if unexpectedly passed (with ``strict=True`` argument).
 Usage
 -----
 
+xfail decorator
+^^^^^^^^^^^^^^^
+
+``xfail`` accepts two arguments, the first argument ``exceptions`` and the
+second argument ``strict``.
+
+``exceptions`` should be an Exception class to skip, like ``Exception``,
+``AssertionError``, and so on. If you want to skip multiple exceptions, use
+tuple of them, for example, ``@xfail((AssertionError, ValueError))``.
+
+``strict`` should be a boolean and by default it is ``False``. If it was
+``True`` and the decorated function did not raise expected error,
+``XPassFailure`` exception would be raised.
+
 .. code-block:: py
 
     from xfail import xfail
@@ -66,7 +80,7 @@ In test script, similar to ``unittest.TestCase.assertRaises``:
         def test_3(self)
             assert False
 
-        # This test fails
+        # This test will fail
         @xfail(AssertionError, strict=True)
         def test_3(self)
             assert True
