@@ -21,6 +21,8 @@ skipped, and raise if unexpectedly passed (with ``strict=True`` argument).
 Install
 -------
 
+Supported python versions are: 2.7, 3.4, 3.5
+
 Can be installed from PyPI by pip::
 
     pip install xfail
