@@ -18,6 +18,13 @@ XFail provides a decorator function ``xfail`` to skip expected exceptions.
 Similar to unittest.skipIf, but ``xfail`` can specify which exception should be
 skipped, and raise if unexpectedly passed (with ``strict=True`` argument).
 
+Install
+-------
+
+Can be installed from PyPI by pip::
+
+    pip install xfail
+
 Usage
 -----
 
