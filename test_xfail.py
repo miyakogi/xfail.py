@@ -76,6 +76,29 @@ class TestXFail(unittest.TestCase):
         assert a(4, 2) == 2
         a(1, 0)
 
+    def test_multiple_exception(self):
+        @xfail((ZeroDivisionError, IndexError))
+        def a(i, j=1):
+            [1, 2, 3][i]
+            return i / j
+        a(1)
+        a(3)
+        a(1, 0)
+        with self.assertRaises(TypeError):
+            a()
+
+    def test_multiple_exception_strict(self):
+        @xfail((ZeroDivisionError, IndexError), strict=True)
+        def a(i, j=1):
+            [1, 2, 3][i]
+            return i / j
+        with self.assertRaises(XPassFailure):
+            a(1)
+        a(3)
+        a(1, 0)
+        with self.assertRaises(TypeError):
+            a()
+
 
 if __name__ == '__main__':
     unittest.main()
