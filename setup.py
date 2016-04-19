@@ -14,12 +14,12 @@ with open(readme_file) as readme_file:
 
 setup(
     name='xfail',
-    version='1.0.0',
+    version='1.0.1',
     description='Skip expected failures and raise error if unexpectedly passed',
     long_description=readme,
     author='Hiroyuki Takagi',
     author_email='miyako.dev@gmail.com',
-    url='https://github.com/miyakogi/xfail',
+    url='https://github.com/miyakogi/xfail.py',
     py_modules=['xfail'],
     include_package_data=True,
     license="MIT",
