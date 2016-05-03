@@ -58,15 +58,16 @@ class TestXFail(unittest.TestCase):
         with self.assertRaises(XPassFailure):
             a()
 
-    @xfail(AssertionError)
+    @xfail(AssertionError, strict=True)
     def test_decorator(self):
         assert False
 
+    @xfail(unittest.SkipTest, strict=True)
     @xfail(AssertionError)
     def test_decorator_pass(self):
         assert True
 
-    @xfail(XPassFailure)
+    @xfail(XPassFailure, strict=True)
     @xfail(AssertionError, strict=True)
     def test_decorator_strict(self):
         assert True
