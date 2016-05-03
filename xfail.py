@@ -3,6 +3,7 @@
 
 from functools import wraps
 import logging
+import unittest
 
 logger = logging.getLogger(__name__)
 
@@ -20,8 +21,7 @@ def xfail(exceptions, strict=False):
             try:
                 res = func(*args, **kwargs)
             except exceptions as e:
-                logger.debug(
-                    'passed with expected failure:', type(e))
+                logger.debug('passed with expected failure:', type(e))
             except Exception as e:
                 err = e
             else:
@@ -31,6 +31,8 @@ def xfail(exceptions, strict=False):
                 else:
                     logger.debug(
                         'Unexpectedly passed:', func.__name__)
+                    err = unittest.SkipTest(
+                        'Unexpectedly passed in non-strict mode')
             finally:
                 if err is not None:
                     raise err

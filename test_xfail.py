@@ -10,7 +10,8 @@ from xfail import xfail, XPassFailure
 class TestXFail(unittest.TestCase):
     def test_passes(self):
         @xfail(AssertionError)
-        def a(): raise AssertionError
+        def a():
+            raise AssertionError
         a()
 
     @unittest.skipIf(sys.version_info < (3, 4),
@@ -43,7 +44,8 @@ class TestXFail(unittest.TestCase):
     def test_passes_noerror(self):
         @xfail(AssertionError)
         def a(): pass
-        a()
+        with self.assertRaises(unittest.SkipTest):
+            a()
 
     def test_strict(self):
         @xfail(AssertionError, strict=True)
@@ -73,7 +75,8 @@ class TestXFail(unittest.TestCase):
         @xfail(ZeroDivisionError)
         def a(i, j=1):
             return i / j
-        assert a(4, 2) == 2
+        with self.assertRaises(unittest.SkipTest):
+            assert a(4, 2) == 2
         a(1, 0)
 
     def test_multiple_exception(self):
@@ -81,7 +84,8 @@ class TestXFail(unittest.TestCase):
         def a(i, j=1):
             [1, 2, 3][i]
             return i / j
-        a(1)
+        with self.assertRaises(unittest.SkipTest):
+            a(1)
         a(3)
         a(1, 0)
         with self.assertRaises(TypeError):
