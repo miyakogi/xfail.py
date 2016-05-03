@@ -16,7 +16,8 @@ XFail
 
 XFail provides a decorator function ``xfail`` to skip expected exceptions.
 Similar to unittest.skipIf, but ``xfail`` can specify which exception should be
-skipped, and raise if unexpectedly passed (with ``strict=True`` argument).
+skipped, and raise if the decorated function is unexpectedly passed (only if
+``strict`` is ``True``).
 
 Install
 -------
@@ -33,16 +34,22 @@ Usage
 xfail decorator
 ^^^^^^^^^^^^^^^
 
-``xfail`` accepts two arguments, the first argument ``exceptions`` and the
-second argument ``strict``.
+``xfail`` accepts two arguments, ``exceptions`` and ``strict``.
 
-``exceptions`` should be an Exception class to skip, like ``Exception``,
-``AssertionError``, and so on. If you want to skip multiple exceptions, use
-tuple of them, for example, ``@xfail((AssertionError, ValueError))``.
+The first argument (``exceptions``) should be an Exception class to skip (Ex.
+``Exception``, ``AssertionError``, and so on). If you want to skip multiple
+exceptions, use tuple of them, for example, ``@xfail((AssertionError,
+ValueError))``.
 
-``strict`` should be a boolean and by default it is ``False``. If it was
-``True`` and the decorated function did not raise expected error,
-``XPassFailure`` exception would be raised.
+The second argument ``strict`` should be a boolean. If ``strict`` is ``False``
+(by default) and passed unexpectedly, raise ``unittest.SkipTest`` exception,
+which will mark the test is skipped. This case is very similar to the function
+is decorated by ``uniteest.skip`` function and the test will be counted as
+skipped.
+
+ If it is ``True`` and the decorated function did not raise (any of) the
+ expected exception(s), ``XPassFailure`` exception would be raised.
+ In this case, the test will be counted as fail.
 
 .. code-block:: py
 
