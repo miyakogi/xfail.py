@@ -14,7 +14,7 @@ with open(readme_file) as readme_file:
 
 setup(
     name='xfail',
-    version='1.0.1',
+    version='1.1.0',
     description='Skip expected failures and raise error if unexpectedly passed',
     long_description=readme,
     author='Hiroyuki Takagi',
