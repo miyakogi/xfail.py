@@ -14,7 +14,7 @@ with open(readme_file) as readme_file:
 
 setup(
     name='xfail',
-    version='1.1.0',
+    version='1.1.1',
     description='Skip expected failures',
     long_description=readme,
     author='Hiroyuki Takagi',
@@ -35,6 +35,7 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
     test_suite='test_xfail',
 )
