@@ -22,7 +22,7 @@ skipped, and raise if the decorated function is unexpectedly passed (only if
 Install
 -------
 
-Supported python versions are: 2.7, 3.4, 3.5
+Supported python versions are: 2.7, 3.4, 3.5, 3.6
 
 Can be installed from PyPI by pip::
 
