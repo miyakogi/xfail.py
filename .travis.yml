@@ -10,6 +10,6 @@ install:
   - pip install coverage codecov
 script:
   - tox
-  - PYTHONPATH=${TRAVIS_BUILD_DIR} python -m coverage run --source xfail -m unittest discover
 after_success:
+  - PYTHONPATH=${TRAVIS_BUILD_DIR} python -m coverage run --source xfail -m unittest discover
   - codecov
