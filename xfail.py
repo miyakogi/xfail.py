@@ -3,26 +3,27 @@
 
 from functools import wraps
 import logging
+from typing import Callable, Any, Type
 import unittest
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)  # type: logging.Logger
 
 
 class XPassFailure(AssertionError):
     pass
 
 
-def xfail(exceptions, strict=False):
-    def decorator(func):
+def xfail(exceptions: Type[BaseException], strict=False) -> Callable[..., Callable[..., Any]]:  # flake8: noqa
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args, **kwargs) -> Callable[..., Any]:
             res = None
             err = None
             try:
                 res = func(*args, **kwargs)
             except exceptions as e:
                 logger.debug('passed with expected failure:', type(e))
-            except Exception as e:
+            except BaseException as e:
                 err = e
             else:
                 if strict:
