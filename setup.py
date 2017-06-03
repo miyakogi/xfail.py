@@ -19,7 +19,7 @@ if sys.version_info < (3, 6):
 
 setup(
     name='xfail',
-    version='1.1.1',
+    version='1.1.2',
     description='Skip expected failures',
     long_description=readme,
     author='Hiroyuki Takagi',
