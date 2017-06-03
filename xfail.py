@@ -3,7 +3,7 @@
 
 from functools import wraps
 import logging
-from typing import Callable, Any, Type
+from typing import Callable, Any, Type  # noqa: F401
 import unittest
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
@@ -13,10 +13,13 @@ class XPassFailure(AssertionError):
     pass
 
 
-def xfail(exceptions: Type[BaseException], strict=False) -> Callable[..., Callable[..., Any]]:  # flake8: noqa
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+def xfail(exceptions, strict=False):
+    # type: (Type[BaseException], bool) -> Callable[..., Callable[..., Any]]
+    def decorator(func):
+        # type: (Callable[..., Any]) -> Callable[..., Any]
         @wraps(func)
-        def wrapper(*args, **kwargs) -> Callable[..., Any]:
+        def wrapper(*args, **kwargs):
+            # type: (...) -> Callable[..., Any]
             res = None
             err = None
             try:

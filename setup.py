@@ -14,8 +14,8 @@ with open(readme_file) as readme_file:
     readme = readme_file.read()
 
 install_requires = []
-if sys.version_info < (3, 5):
-    install_requires.append('mypy')
+if sys.version_info < (3, 6):
+    install_requires.append('typing')
 
 setup(
     name='xfail',
