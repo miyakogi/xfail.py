@@ -1,2 +1,3 @@
 [run]
 omit=setup.py
+include=xfail.py,test_xfail.py
