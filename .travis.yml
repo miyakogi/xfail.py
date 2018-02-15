@@ -1,14 +1,22 @@
 language: python
-python:
-  - "2.7"
-  - "3.4"
-  - "3.5"
-  - "3.6"
+
+matrix:
+  include:
+    - python: 2.7
+      env: TOXENV=py
+    - python: 3.4
+      env: TOXENV=py
+    - python: 3.5
+      env: TOXENV=py
+    - python: 3.6
+      env: TOXENV=py,flake8,mypy,codecov
+    - python: pypy
+      env: TOXENV=py
+    - python: pypy3
+      env: TOXENV=py
 
 install:
-  - pip install tox-travis
-  - pip install coverage codecov
+  - pip install tox
+
 script:
   - tox
-after_success:
-  - if [[ $TRAVIS_PYTHON_VERSION == 3.6* ]]; then cd ${TRAVIS_BUILD_DIR} && coverage erase && python -m coverage run --source xfail -m unittest discover && coverage report && codecov; fi
