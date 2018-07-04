@@ -19,7 +19,7 @@ def xfail(exceptions, strict=False):
         # type: (Callable[..., Any]) -> Callable[..., Any]
         @wraps(func)
         def wrapper(*args, **kwargs):
-            # type: (...) -> Callable[..., Any]
+            # type: (...) -> Any
             res = None
             err = None
             try:
